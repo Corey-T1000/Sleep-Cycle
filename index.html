@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700&family=Roboto+Mono:wght@100;200;300;500;600;700&display=swap"
+        rel="stylesheet">
+    <title>Sleep Cycle
+    </title>
+</head>
+
+<body
+    class="bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-gray-900 via-blue-90 to-purple-900 bg-gradient-to-r min-h-screen items-center">
+    <div class="container mx-auto p-4">
+        <h1 class="realitive text-xs font-bold tracking-[0.18rem]  text-center uppercase 
+        text-white pt-16 mb-8
+        ">You should probably wake up at...</h1>
+        <div id="timeContainer" class="max-w-xs mx-auto">
+            <!-- The time elements will be inserted here --> ${i}
+        </div>
+    </div>
+    <div class="h-16 justify-between items-center my-4 pt-8 px-6 ">
+        <!-- Logo -->
+        <div class="flex justify-center items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-24 w-auto logo">
+                <path
+                    d="M92.2 0C41.3 0 0 41.3 0 92.2c0 18.2 5.3 35.2 14.4 49.5l27-17.2c-5.9-9.3-9.4-20.4-9.4-32.3C32 58.9 58.9 32 92.2 32c15.8 0 30.2 6.1 40.9 16.1l21.8-23.5C138.4 9.3 116.4 0 92.2 0zM357.1 24.6l21.8 23.5C389.6 38.1 404 32 419.8 32C453 32 480 58.9 480 92.2c0 11.9-3.4 23-9.4 32.3l27 17.2c9.1-14.3 14.4-31.3 14.4-49.5C512 41.3 470.7 0 419.8 0c-24.2 0-46.3 9.3-62.7 24.6zM67.3 499.3l42-42C148.6 491.4 199.9 512 256 512s107.4-20.6 146.7-54.7l42 42L456 510.6 478.6 488l-11.3-11.3-42-42C459.4 395.4 480 344.1 480 288C480 164.3 379.7 64 256 64S32 164.3 32 288c0 56.1 20.6 107.4 54.7 146.7l-42 42L33.4 488 56 510.6l11.3-11.3zM256 96a192 192 0 1 1 0 384 192 192 0 1 1 0-384zm-64 96H176v32h16 83.7L194.3 359.8 179.7 384H208 320h16V352H320 236.3l81.5-135.8L332.3 192H304 192z" />
+            </svg>
+        </div>
+    </div>
+    <script>
+        function updateTimeElements() {
+            const timeContainer = document.getElementById("timeContainer");
+            timeContainer.innerHTML = "";
+
+            const now = new Date();
+            for (let i = 1; i <= 6; i++) {
+                const timeIncrement = new Date(
+                    now.getTime() + i * 90 * 60 * 1000 + 15 * 60 * 1000
+                );
+
+                // Format the time without seconds and without AM/PM indicator
+                const formattedTime = timeIncrement.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                }).replace(/(am|pm)/i, '');
+
+                const timeElement = `
+                <div class="my-6 grid grid-cols-1 items-center">
+    <div class="text-center">
+        <p class="text-6xl font-thin text-white">${formattedTime}</p>
+    </div>
+</div>
+
+
+
+
+
+            `;
+
+                timeContainer.innerHTML += timeElement;
+            }
+        }
+
+        updateTimeElements();
+        setInterval(updateTimeElements, 30 * 1000); // Update every 30s
+
+        function applySystemTheme() {
+            const theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+            document.documentElement.setAttribute("data-theme", theme);
+        }
+    </script>
+
+
+
+</body>
+
+</html>
